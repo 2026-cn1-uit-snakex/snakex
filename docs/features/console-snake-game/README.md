@@ -34,6 +34,14 @@ hieutran21198 owns this scope.
 - [Decision: Platform Console Abstraction](decisions/platform-console-abstraction.md)
   defines the choice of a project-owned console interface with one POSIX and
   one Windows implementation.
+- [Task: Console Platform Layer](tasks/console-platform-layer.md) defines the
+  work to implement the console interface on POSIX and on Windows.
+- [Task: Gameplay Core](tasks/gameplay-core.md) defines the work to implement
+  the platform-neutral gameplay rules with unit tests.
+- [Task: Game Shell](tasks/game-shell.md) defines the work to implement the
+  game loop and the console presentation.
+- [Implementation Plan: Console Snake Game](implementation-plan/console-snake-game.md)
+  defines the change sequence, dependencies, risks, and verification approach.
 
 ## Related Knowledge
 
