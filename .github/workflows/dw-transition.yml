@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.base.ref }}
-      - uses: cirius/delivery-workflow@v1
+      - uses: hieutran21198/nixprint/services/delivery-workflow@v1
         env:
           DW_GITHUB_TOKEN: ${{ secrets.DW_GITHUB_TOKEN }}
         with:
