@@ -22,6 +22,11 @@ case "$target" in
 esac
 
 case "$expert" in
+apps-cpp)
+  write_paths=(apps/snake)
+  write_globs=()
+  ;;
+
 scope-expert)
   write_paths=()
   write_globs=()
