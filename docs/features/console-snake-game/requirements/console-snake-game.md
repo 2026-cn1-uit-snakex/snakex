@@ -7,7 +7,9 @@ delivery:
 
 This document defines the intended outcome, constraints, and acceptance
 criteria for the [Console Snake Game](../README.md) feature scope. It does not
-define a solution, an architecture, or a task sequence.
+define a solution, an architecture, or a task sequence. The
+[Console Snake Game specification](../specifications/console-snake-game.md)
+defines the behavior that satisfies this requirement.
 
 ## Intended Outcome
 

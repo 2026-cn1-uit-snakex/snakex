@@ -28,6 +28,12 @@ hieutran21198 owns this scope.
 
 - [Requirements: Console Snake Game](requirements/console-snake-game.md)
   defines the intended outcome, constraints, and acceptance criteria.
+- [Specification: Console Snake Game](specifications/console-snake-game.md)
+  defines the behavior, interfaces, data, rules, failure conditions, and
+  verification.
+- [Decision: Platform Console Abstraction](decisions/platform-console-abstraction.md)
+  defines the choice of a project-owned console interface with one POSIX and
+  one Windows implementation.
 
 ## Related Knowledge
 
