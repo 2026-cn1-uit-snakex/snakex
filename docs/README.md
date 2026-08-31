@@ -8,6 +8,8 @@ before you add or change project documentation.
 
 ## Contents
 
+- [Features](features/README.md) contains one record for each cohesive
+  feature scope.
 - [Wiki](wiki/README.md) contains system-wide knowledge, governance, and
   standards.
 - [C++ Code Standard](wiki/standards/cpp.md) defines how to write C++ code.
