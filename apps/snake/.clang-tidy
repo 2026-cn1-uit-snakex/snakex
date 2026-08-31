@@ -1,0 +1,17 @@
+# Repository config. It inherits the workspace .clang-tidy and relaxes the
+# checks that object to this project's deliberate style.
+#
+# InheritParentConfig is required. Without it this file replaces the workspace
+# config instead of adding to it, which would drop the bugprone-* error
+# promotion and the identifier-naming rules.
+---
+InheritParentConfig: true
+Checks: >
+  -portability-avoid-pragma-once,
+  -cppcoreguidelines-avoid-c-arrays,
+  -modernize-avoid-c-arrays,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-type-vararg,
+  -modernize-use-std-print,
+  -cppcoreguidelines-pro-type-member-init,
+  -cppcoreguidelines-prefer-member-initializer
