@@ -12,4 +12,4 @@ devenv.local.yaml
 # C++ build artifacts
 build/
 compile_commands.json
-.cache/clangd/
+.cache/
