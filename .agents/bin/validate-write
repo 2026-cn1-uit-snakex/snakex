@@ -1,0 +1,61 @@
+set -euo pipefail
+
+expert="${1:?expected expert id}"
+input="$(/nix/store/97d5ygrvqj55f4nx1x34wfdcc7qn11c0-coreutils-9.11/bin/cat)"
+file_path="$(printf '%s' "$input" | /nix/store/25pcd19xk5ff8ybjslsips4g7yv06fxl-jq-1.8.2-bin/bin/jq -r '.tool_input.file_path // empty')"
+
+if [ -z "$file_path" ]; then
+  echo "Blocked: the write request has no file path" >&2
+  exit 2
+fi
+
+root="$(/nix/store/8wxs6573l730vxkqd6wp58kvxa19csll-git-2.55.0/bin/git -C "$PWD" rev-parse --show-toplevel)"
+root="$(/nix/store/97d5ygrvqj55f4nx1x34wfdcc7qn11c0-coreutils-9.11/bin/realpath "$root")"
+target="$(/nix/store/97d5ygrvqj55f4nx1x34wfdcc7qn11c0-coreutils-9.11/bin/realpath -m "$file_path")"
+
+case "$target" in
+  "$root"/*) relative_path="${target#"$root"/}" ;;
+  *)
+    echo "Blocked: $file_path is outside the repository" >&2
+    exit 2
+    ;;
+esac
+
+case "$expert" in
+scope-expert)
+  write_paths=()
+  write_globs=()
+  ;;
+
+technical-expert)
+  write_paths=()
+  write_globs=()
+  ;;
+
+  *)
+    echo "Blocked: unknown expert $expert" >&2
+    exit 2
+    ;;
+esac
+
+allowed=0
+if [ "${#write_globs[@]}" -gt 0 ]; then
+  for pattern in "${write_globs[@]}"; do
+    if [[ "$relative_path" == $pattern ]]; then
+      allowed=1
+      break
+    fi
+  done
+else
+  for path in "${write_paths[@]}"; do
+    if [[ "$relative_path" == "$path" || "$relative_path" == "$path"/* ]]; then
+      allowed=1
+      break
+    fi
+  done
+fi
+
+if [ "$allowed" -ne 1 ]; then
+  echo "Blocked: $relative_path is outside the $expert write boundary" >&2
+  exit 2
+fi

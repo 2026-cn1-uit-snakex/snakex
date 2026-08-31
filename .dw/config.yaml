@@ -1,0 +1,51 @@
+version: 2
+github:
+  repository: 2026-cn1-uit-snakex/snakex
+  project:
+    owner: 2026-cn1-uit-snakex
+    owner_type: organization
+    number: 1
+    id: PVT_kwDOE0M2hs4BiAq6
+    status_field_id: PVTSSF_lADOE0M2hs4BiAq6zhg6N28
+    status_field: Status
+  classification:
+    requirement: Requirement
+    specification: Specification
+    decision: Decision
+    task: Task
+acceptance_branch: main
+authorizer_teams: []
+authorizer_users: []
+states:
+  draft:
+    id: f75ad846
+    name: Draft
+    sources:
+      - f75ad846
+  accepted:
+    id: fd4ad045
+    name: Accepted
+    sources:
+      - fd4ad045
+  ready:
+    id: f1898970
+    name: Ready
+    sources:
+      - f1898970
+  in_progress:
+    id: 47fc9ee4
+    name: In Progress
+    sources:
+      - 47fc9ee4
+  archived:
+    id: 221a1861
+    name: Archived
+    sources:
+      - 221a1861
+  implementation_accepted:
+    id: 0c903614
+    name: Ready for Testing
+    sources:
+      - 0c903614
+phase4:
+  auto_transition: true

@@ -1,0 +1,25 @@
+# Seeded by devenv. Edit freely; devenv keeps your changes.
+---
+BasedOnStyle: LLVM
+Standard: Latest
+ColumnLimit: 100
+IndentWidth: 2
+AccessModifierOffset: -2
+PointerAlignment: Left
+ReferenceAlignment: Left
+QualifierAlignment: Left
+BreakTemplateDeclarations: Yes
+BreakConstructorInitializers: BeforeColon
+PackConstructorInitializers: NextLine
+SeparateDefinitionBlocks: Always
+FixNamespaceComments: true
+IncludeBlocks: Regroup
+SortIncludes: CaseSensitive
+SortUsingDeclarations: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+InsertBraces: true
+InsertNewlineAtEOF: true
+RemoveSemicolon: true
+SpaceAfterTemplateKeyword: false

@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://devenv.sh/devenv.schema.json
+inputs:
+  git-hooks:
+    url: github:cachix/git-hooks.nix
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
+  nixpkgs:
+    url: github:cachix/devenv-nixpkgs/rolling
+  nixprint:
+    url: github:hieutran21198/nixprint/main
+    flake: false
+allow_unfree: true
+imports:
+- nixprint

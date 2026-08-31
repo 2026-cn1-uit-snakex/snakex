@@ -1,0 +1,20 @@
+# Seeded by devenv. Edit freely; devenv keeps your changes.
+---
+Checks: >
+  -*,
+  bugprone-*,
+  concurrency-*,
+  cppcoreguidelines-*,
+  misc-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -misc-non-private-member-variables-in-classes,
+  -modernize-use-trailing-return-type,
+  -readability-magic-numbers
+WarningsAsErrors: 'bugprone-*'
+HeaderFilterRegex: '.*'
+FormatStyle: file
