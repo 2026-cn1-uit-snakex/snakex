@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: cirius/delivery-workflow@v1
+      - uses: hieutran21198/nixprint/services/delivery-workflow@v1
         env:
           DW_GITHUB_TOKEN: ${{ secrets.DW_GITHUB_TOKEN }}
         with:
