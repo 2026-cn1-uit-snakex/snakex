@@ -93,11 +93,11 @@
     "nixprint": {
       "flake": false,
       "locked": {
-        "lastModified": 1788186136,
-        "narHash": "sha256-+V0xA4w4bz814IMqfj8I78QMY0DDHbzVrpulWnF5JTo=",
+        "lastModified": 1788194570,
+        "narHash": "sha256-THG0gGBlQoYLFKVCPbDgi5I2u1BZAd3cjdWHN+cN5SA=",
         "owner": "hieutran21198",
         "repo": "nixprint",
-        "rev": "83720e779559472279abe0988f80e144912bfe7e",
+        "rev": "b78abb081d28191ad0620e342a0ca3234c891e55",
         "type": "github"
       },
       "original": {
