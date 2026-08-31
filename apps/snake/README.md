@@ -2,7 +2,7 @@
 
 A terminal snake game. The snake is an array of points on an Oxy grid.
 
-Supported platforms: Linux, macOS, and Windows.
+Supported platforms: Linux and Windows.
 
 ## Build
 
