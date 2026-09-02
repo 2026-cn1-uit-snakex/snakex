@@ -1,40 +1,74 @@
 #include "domain/Snake.hpp"
 
-#include "platform/Console.hpp"
+#include <algorithm>
+#include <stdexcept>
+#include <utility>
 
-#include <iostream>
+namespace snake {
 
-Snake::Snake() {
-  length = 3;
-  body[0].x = 10;
-  body[0].y = 10;
-  body[1].x = 11;
-  body[1].y = 10;
-  body[2].x = 12;
-  body[2].y = 10;
-}
+Snake::Snake()
+    : body_{Position{.x = 20, .y = 10},
+            Position{.x = 19, .y = 10},
+            Position{.x = 18, .y = 10}} {}
 
-void Snake::draw() {
-  for (int i = 0; i < length; i++) {
-    console::move_cursor(body[i].x, body[i].y);
-    std::cout << "X";
+Snake::Snake(std::vector<Position> initial_segments)
+    : body_(std::move(initial_segments)) {
+  if (body_.empty()) {
+    throw std::invalid_argument("Snake body cannot be empty");
   }
 }
 
-void Snake::move(int direction) {
-  for (int i = length - 1; i > 0; i--) {
-    body[i] = body[i - 1];
+const std::vector<Position>& Snake::body() const noexcept {
+  return body_;
+}
+
+Position Snake::head() const {
+  if (body_.empty()) {
+    throw std::out_of_range("Snake has no head");
   }
-  if (direction == 0) {
-    body[0].x = body[0].x + 1;
+  return body_.front();
+}
+
+Position Snake::tail() const {
+  if (body_.empty()) {
+    throw std::out_of_range("Snake has no tail");
   }
-  if (direction == 1) {
-    body[0].y = body[0].y + 1;
+  return body_.back();
+}
+
+std::size_t Snake::length() const noexcept {
+  return body_.size();
+}
+
+bool Snake::occupies(Position position) const noexcept {
+  return std::ranges::any_of(
+      body_, [position](const Position& segment) { return segment == position; });
+}
+
+bool Snake::occupies_excluding_tail(Position position) const noexcept {
+  if (body_.size() <= 1) {
+    return false;
   }
-  if (direction == 2) {
-    body[0].x = body[0].x - 1;
+  return std::ranges::any_of(
+      body_.begin(), body_.end() - 1,
+      [position](const Position& segment) { return segment == position; });
+}
+
+bool Snake::would_reverse(Direction new_direction) const noexcept {
+  if (body_.size() <= 1) {
+    return false;
   }
-  if (direction == 3) {
-    body[0].y = body[0].y - 1;
+  const Position offset = direction_offset(new_direction);
+  const Position candidate_next{.x = head().x + offset.x,
+                                .y = head().y + offset.y};
+  return candidate_next == body_.at(1);
+}
+
+void Snake::step(Position new_head, bool grow) {
+  body_.insert(body_.begin(), new_head);
+  if (!grow) {
+    body_.pop_back();
   }
 }
+
+}  // namespace snake
