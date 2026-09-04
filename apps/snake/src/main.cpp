@@ -3,6 +3,7 @@
 #include "domain/PlayField.hpp"
 #include "platform/Console.hpp"
 
+#include <cstddef>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -33,7 +34,14 @@ void draw_boundary(const snake::PlayField& field) {
   std::cout << horizontal_border;
 }
 
-void draw_play_state(const snake::Game& game) {
+void draw_score(const snake::Game& game) {
+  console::move_cursor(0, game.field().height() + 2);
+  std::cout << "Score: " << game.score();
+}
+
+// Draws the boundary, the full snake, the food, and the score once. Called at
+// the start of a round, when every cell on screen is unknown or stale.
+void draw_full(const snake::Game& game) {
   console::clear();
   draw_boundary(game.field());
 
@@ -46,8 +54,41 @@ void draw_play_state(const snake::Game& game) {
     std::cout << 'O';
   }
 
-  console::move_cursor(0, game.field().height() + 2);
-  std::cout << "Score: " << game.score();
+  draw_score(game);
+  std::cout.flush();
+}
+
+struct FrameState {
+  snake::Position tail;
+  std::size_t length;
+};
+
+FrameState capture_frame(const snake::Game& game) {
+  return FrameState{.tail = game.snake().tail(), .length = game.snake().length()};
+}
+
+// Redraws only the cells the last tick changed: the vacated tail cell (when
+// the snake did not grow), the new head cell, and the food and score (only
+// when the snake grew, since eating food is the only event that moves them).
+void draw_tick_update(const snake::Game& game, const FrameState& before) {
+  const bool grew = game.snake().length() > before.length;
+
+  if (!grew) {
+    console::move_cursor(before.tail.x + 1, before.tail.y + 1);
+    std::cout << ' ';
+  }
+
+  const auto head = game.snake().head();
+  console::move_cursor(head.x + 1, head.y + 1);
+  std::cout << 'O';
+
+  if (grew) {
+    const auto food_pos = game.food();
+    console::move_cursor(food_pos.x + 1, food_pos.y + 1);
+    std::cout << '*';
+    draw_score(game);
+  }
+
   std::cout.flush();
 }
 
@@ -96,6 +137,8 @@ snake::Direction key_to_direction(char key, bool& recognized) {
 // Plays until the snake dies or the player quits. Returns false when the
 // player quit during play, true when the game ended on its own.
 bool play_round(snake::Game& game) {
+  draw_full(game);
+
   while (!game.is_over()) {
     char key = 0;
     if (console::key_pressed(key)) {
@@ -109,8 +152,9 @@ bool play_round(snake::Game& game) {
       }
     }
 
+    const FrameState before = capture_frame(game);
     game.tick();
-    draw_play_state(game);
+    draw_tick_update(game, before);
     console::sleep_ms(TickIntervalMs);
   }
   return true;
